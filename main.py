@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from tkinter import *
 import tkinter
 import tkinter.messagebox
@@ -8,10 +9,12 @@ class Main(Frame):
         self.build()
 
     def build(self):
+        # начальные значения, а так же отображение виджета Label
         self.formula = "0"
         self.lbl = Label(text=self.formula, font=("Times New Roman", 21, "bold"), bg="#000", foreground="#FFF")
         self.lbl.place(x=11, y=50)
 
+        # список кнопок для отображения
         btns = [
             "C", "DEL", "*", "=",
             "1", "2", "3", "/",
@@ -20,6 +23,7 @@ class Main(Frame):
             "(", "0", ")", "X^2"
         ]
 
+        # рендер кнопок
         x = 10
         y = 140
         for bt in btns:
@@ -30,6 +34,7 @@ class Main(Frame):
                 x = 10
                 y += 81
 
+    # основная функция для выполнения логических операция
     def logicalc(self, operation):
         if operation == "C":
             self.formula = ""
@@ -38,6 +43,7 @@ class Main(Frame):
         elif operation == "X^2":
             self.formula = str((eval(self.formula))**2)
         elif operation == "=":
+            # исключение, если пользователь делит число на ноль
             try:
                 self.formula = str(eval(self.formula))
             except ZeroDivisionError:
@@ -49,12 +55,13 @@ class Main(Frame):
             self.formula += operation
         self.update()
 
+    # возвращение в начальным значением
     def update(self):
         if self.formula == "":
             self.formula = "0"
         self.lbl.configure(text=self.formula)
 
-
+# создание окна калькулятора
 if __name__ == '__main__':
     root = Tk()
     root["bg"] = "#000"
